@@ -21,7 +21,7 @@ Article.prototype.toHtml = function() {
 
   // COMMENT: What is going on in the line below? What do the question mark and colon represent? How have we seen this same logic represented previously?
   // Not sure? Check the docs!
-  // This is a ternary operator that checks if published status is publishedOn and if true it returns `published ${this.daysAgo} days ago` if false it returns '(draft)'
+  // This is a ternary operator that checks if published status is publishedOn and if true it returns `published ${this.daysAgo} days ago` if false it returns '(draft)'. It was previously represented as an if, else statement.
   this.publishStatus = this.publishedOn ? `published ${this.daysAgo} days ago` : '(draft)';
   this.body = marked(this.body);
 
@@ -35,7 +35,6 @@ Article.prototype.toHtml = function() {
 // COMMENT: Where is this function called? What does 'rawData' represent now? How is this different from previous labs?
 // This is called in the .fetchAll.  Represents the localStorage value. In previous labs it represented an array of objects.
 Article.loadAll = articleData => {
-  console.log(articleData);
   articleData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)))
 
   articleData.forEach(articleObject => Article.all.push(new Article(articleObject)))
