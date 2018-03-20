@@ -21,7 +21,7 @@ Article.prototype.toHtml = function() {
 
   // COMMENT: What is going on in the line below? What do the question mark and colon represent? How have we seen this same logic represented previously?
   // Not sure? Check the docs!
-  // This is a ternary operator that checks if published status is publishedon and if true it returns `published ${this.daysAgo} days ago` if false it returns '(draft)'
+  // This is a ternary operator that checks if published status is publishedOn and if true it returns `published ${this.daysAgo} days ago` if false it returns '(draft)'
   this.publishStatus = this.publishedOn ? `published ${this.daysAgo} days ago` : '(draft)';
   this.body = marked(this.body);
 
@@ -44,14 +44,16 @@ Article.loadAll = articleData => {
 // REVIEW: This function will retrieve the data from either a local or remote source, and process it, then hand off control to the View.
 Article.fetchAll = () => {
   // REVIEW: What is this 'if' statement checking for? Where was the rawData set to local storage?
+  //This if statement is checking if there is anything stored in local storage. If it is empty, then fill with ajax request data. The rawData was set to the ajax data.
   if (localStorage.rawData) {
     let rawData = JSON.parse(localStorage.rawData);
     Article.loadAll(rawData);
+    articleView.initIndexPage();
   } else {
     let data = $.ajax({type:'GET',url: 'data/hackerIpsum.json',dataType: 'json'})
-    .then(data=>{
-      localStorage.setItem('rawData', JSON.stringify(data))
-    return data;})
-    .then(data=>Article.loadAll(data))
+      .then(data=>{
+        localStorage.setItem('rawData', JSON.stringify(data))
+        return data;})
+      .then(data=>{Article.loadAll(data); articleView.initIndexPage()})
   }
 }

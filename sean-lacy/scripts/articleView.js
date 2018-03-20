@@ -105,9 +105,7 @@ articleView.create = () => {
   $('#article-json').val(`${JSON.stringify(article)},`);
 };
 
-
 articleView.initIndexPage = () => {
-  Article.fetchAll(); 
   Article.all.forEach(article => {
     $('#articles').append(article.toHtml())
   });

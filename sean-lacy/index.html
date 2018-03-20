@@ -83,9 +83,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
     <script src="scripts/article.js"></script>
     <script src="scripts/articleView.js"></script>
-    <!-- NEED A COMMENT ABOUT WHAT IS GOING ON -->
+    <!-- This function starts an async ajax request and controls when he rest of the page is rendered using a .then method.-->
     <script>
-      articleView.initIndexPage();
+      Article.fetchAll();
     </script>
   </body>
 </html>
